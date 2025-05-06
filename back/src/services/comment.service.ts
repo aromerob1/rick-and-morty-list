@@ -10,26 +10,33 @@ interface CreateCommentData {
  * Create a new comment for a character.
  */
 export const createComment = async (data: CreateCommentData, redis?: RedisClientType): Promise<any> => {
-    console.log(`[Service] Creando comentario para Character ID: ${data.characterId}`);
+    console.log(`[Service] Creating comment for id: ${data.characterId}`);
     try {
         const newComment = await db.Comment.create({
             characterId: Number(data.characterId), 
             commentText: data.commentText
         });
+        const plainComment = {
+            id: newComment.id, 
+            commentText: '',
+            characterId: '',
+            createdAt: '',
+            updatedAt: '',
+        };
         if (redis?.isOpen) {
             const characterCacheKey = `character:${data.characterId}`;
-            console.log(`[Service] Invalidando caché de personaje: ${characterCacheKey} por nuevo comentario.`);
+            console.log(`[Service] Invalidating cache for character ID: ${characterCacheKey}`);
             try {
                 await redis.del(characterCacheKey);
             } catch (cacheErr) {
-                console.error(`[Service] Error al borrar caché de Redis para ${characterCacheKey}:`, cacheErr);
+                console.error(`[Service] Error: ${characterCacheKey}:`, cacheErr);
             }
         }
 
-        return newComment.toJSON();
+        return plainComment; 
     } catch (error) {
-        console.error('[Service] Error al crear comentario:', error);
-        throw new Error('Error al guardar el comentario.');
+        console.error('[Service] Error creating comment:', error);
+        throw new Error('Error saving comment');
     }
 };
 
@@ -41,7 +48,7 @@ export const createComment = async (data: CreateCommentData, redis?: RedisClient
  * @throws Error if there is an issue retrieving comments.
  */
 export const findCommentsByCharacterId = async (characterId: string | number, redis?: RedisClientType): Promise<any[]> => {
-    console.log(`[Service] Buscando comentarios para Character ID: ${characterId}`);
+    console.log(`[Service] Searchng: ${characterId}`);
     try {
         const comments = await db.Comment.findAll({
             where: { characterId: Number(characterId) },
@@ -49,7 +56,7 @@ export const findCommentsByCharacterId = async (characterId: string | number, re
         });
         return comments.map(comment => comment.toJSON());
     } catch (error) {
-        console.error(`[Service] Error al buscar comentarios para Character ${characterId}:`, error);
-        throw new Error('Error al obtener los comentarios.');
+        console.error(`[Service] Error: ${characterId}:`, error);
+        throw new Error('Error getting comments');
     }
 };

@@ -12,6 +12,7 @@ export const typeDefs = `#graphql
     starred: Boolean
     createdAt: String
     updatedAt: String
+    comments: [Comment!]
   }
 
   input FilterCharacterInput {
@@ -32,7 +33,6 @@ export const typeDefs = `#graphql
     id: ID!
     commentText: String!
     characterId: ID! 
-    createdAt: String
   }
 
   type Query {

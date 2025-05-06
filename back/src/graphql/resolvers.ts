@@ -51,7 +51,9 @@ export const resolvers = {
     comments: async (parentCharacter: { id: string | number }, _: any, context: MyContext): Promise<any[]> => {
       console.log(`[Resolver] Fetching: ${parentCharacter.id}`);
       return commentService.findCommentsByCharacterId(parentCharacter.id, context.redis);
+    }
     },
+
   Mutation: {
     updateCharacterStarred: async (
       _: any,
@@ -76,8 +78,9 @@ export const resolvers = {
             characterId: args.characterId,
             commentText: args.commentText
         }, context.redis);
+        newComment.characterId = args.characterId;
+        newComment.commentText = args.commentText;
         return newComment; 
       }
   },
-}   
 };
