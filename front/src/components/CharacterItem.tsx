@@ -41,13 +41,11 @@ export default function CharacterItem({
     event.preventDefault();
     event.stopPropagation();
 
-    console.log(`Cambiando starred para ${id} a ${!starred}`);
-
     try {
       await updateStarred({ variables: { id: id, starred: !starred } });
-      console.log(`Mutación ejecutada para ${id}`);
+      console.log(`Mutation for: ${id}`);
     } catch (err) {
-      console.error(`Error en la mutación para ${id}:`, err);
+      console.error(`Error in mutation: ${id}:`, err);
     }
   };
 
@@ -55,7 +53,9 @@ export default function CharacterItem({
     <Link
       to={`character/${id}`}
       onClick={handleClick}
-      className={`flex items-center justify-between py-4 rounded-lg ${isSelected ? 'bg-primary-100' : ''}`}
+      className={`flex items-center justify-between py-4 rounded-lg transition-all duration-150 ease-in-out ${
+        isSelected ? 'bg-primary-100 -mx-2 px-2 shadow-md' : 'hover:bg-gray-100'
+      }`}
     >
       <div className="flex items-center">
         <img

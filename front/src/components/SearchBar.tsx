@@ -14,9 +14,7 @@ export default function SearchBar({
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    console.log(
-      `[SearchBar] Debounced term: "${debouncedSearchTerm}".`
-    );
+    console.log(`[SearchBar] Debounced term: "${debouncedSearchTerm}".`);
     onSearchChange({ name: debouncedSearchTerm.trim() || undefined });
   }, [debouncedSearchTerm, onSearchChange]);
   return (

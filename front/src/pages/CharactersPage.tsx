@@ -17,17 +17,13 @@ export default function CharacterPage() {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC' | null>(null);
 
-
   const toggleFilterPanel = useCallback(() => {
     setIsFilterPanelOpen((prev) => !prev);
   }, []);
 
   const handleApplyFilters = useCallback(
     (newFilters: ActiveFilters, newSortOrder: SortOrder) => {
-      console.log(
-        'CharacterPage: Apllying filters ->',
-        newFilters
-      );
+      console.log('CharacterPage: Apllying filters ->', newFilters);
       setActiveFilters(newFilters);
       setSortOrder(newSortOrder);
       setIsFilterPanelOpen(false);
@@ -180,19 +176,19 @@ export default function CharacterPage() {
             CHARACTERS ({noStarredCharacters.length})
           </h2>
           <ul>
-              {noStarredCharacters.length > 0 ? (
-                noStarredCharacters.map((char: Character) => (
-                  <li key={char.id} className="border-cool-gray-200 border-t">
-                    <CharacterItem
-                      character={char}
-                      onSelect={handleSelectCharacter}
-                      isSelected={selectedCharacterId === char.id}
-                    />
-                  </li>
-                ))
-              ) : (
-                <p>No characters found</p>
-              )}
+            {noStarredCharacters.length > 0 ? (
+              noStarredCharacters.map((char: Character) => (
+                <li key={char.id} className="border-cool-gray-200 border-t">
+                  <CharacterItem
+                    character={char}
+                    onSelect={handleSelectCharacter}
+                    isSelected={selectedCharacterId === char.id}
+                  />
+                </li>
+              ))
+            ) : (
+              <p>No characters found</p>
+            )}
           </ul>
         </section>
       </div>
