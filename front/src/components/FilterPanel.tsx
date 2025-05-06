@@ -146,26 +146,23 @@ export default function FilterPanel({
             Sort by Name
           </label>
           <div className="flex flex-wrap gap-2">
-            {/* Botón Default (Sin Ordenación) */}
             <FilterButton
               label="Default (ID)"
-              value={undefined} // Representamos 'sin orden' con undefined para FilterButton
-              currentSelection={localSortOrder ?? undefined} // Convierte null a undefined para la prop
-              onClick={() => handleSortSelect(null)} // Al hacer clic, llama a handleSortSelect con null
+              value={undefined} 
+              currentSelection={localSortOrder ?? undefined} 
+              onClick={() => handleSortSelect(null)} 
             />
-            {/* Botón A-Z */}
             <FilterButton
               label="A-Z"
-              value={'ASC'} // El valor 'ASC' es un string, compatible
-              currentSelection={localSortOrder ?? undefined} // Convierte null a undefined
-              onClick={() => handleSortSelect('ASC')} // Al hacer clic, llama a handleSortSelect con 'ASC'
+              value={'ASC'} 
+              currentSelection={localSortOrder ?? undefined} 
+              onClick={() => handleSortSelect('ASC')} 
             />
-            {/* Botón Z-A */}
             <FilterButton
               label="Z-A"
-              value={'DESC'} // El valor 'DESC' es un string, compatible
-              currentSelection={localSortOrder ?? undefined} // Convierte null a undefined
-              onClick={() => handleSortSelect('DESC')} // Al hacer clic, llama a handleSortSelect con 'DESC'
+              value={'DESC'} 
+              currentSelection={localSortOrder ?? undefined} 
+              onClick={() => handleSortSelect('DESC')} 
             />
           </div>
         </div>
