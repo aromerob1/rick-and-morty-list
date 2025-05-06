@@ -1,0 +1,27 @@
+node_modules
+
+# Build output
+dist
+build
+
+# Archivos Lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+
+# Cache
+.DS_Store
+*.tsbuildinfo
+
+# Otras carpetas/archivos específicos que no quieras formatear
+# coverage/
+# public/

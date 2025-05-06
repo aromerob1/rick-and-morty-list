@@ -1,0 +1,23 @@
+node_modules
+
+# Build output
+dist
+build
+
+# Lockfiles
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Env vars
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+
+# Cache/OS
+*.tsbuildinfo
+.DS_Store
