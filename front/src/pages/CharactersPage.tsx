@@ -6,7 +6,7 @@ import CharacterDetailView from '../components/CharacterDetailView';
 import FilterPanel from '../components/FilterPanel';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
 import { GET_CHARACTERS_QUERY } from '../graphql/queries';
-import { Character, ActiveFilters } from '../types';
+import { Character, ActiveFilters, SortOrder } from '../types';
 
 export default function CharacterPage() {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({});
@@ -15,6 +15,8 @@ export default function CharacterPage() {
     string | number | null
   >(null);
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC' | null>(null);
+
 
   console.log(
     'CharacterPage: Estado INICIAL activeFilters',
@@ -25,9 +27,10 @@ export default function CharacterPage() {
     setIsFilterPanelOpen((prev) => !prev);
   }, []);
 
-  const handleApplyFilters = useCallback((newFilters: ActiveFilters) => {
+  const handleApplyFilters = useCallback((newFilters: ActiveFilters, newSortOrder: SortOrder) => {
     console.log('CharacterPage: Aplicando filtros desde Panel ->', newFilters);
     setActiveFilters(newFilters);
+    setSortOrder(newSortOrder);
     setIsFilterPanelOpen(false);
   }, []);
 
@@ -69,6 +72,7 @@ export default function CharacterPage() {
         starred: false,
         ...activeFilters,
       },
+        sortByName: sortOrder || undefined, 
     },
   });
 
@@ -80,6 +84,7 @@ export default function CharacterPage() {
         starred: true,
         ...activeFilters,
       },
+      sortByName: sortOrder || undefined, 
     },
   });
 
@@ -107,6 +112,7 @@ export default function CharacterPage() {
               {isFilterPanelOpen && (
                 <FilterPanel
                   currentFilters={activeFilters}
+                    currentSortOrder={sortOrder}
                   onApplyFilters={handleApplyFilters}
                   onClose={toggleFilterPanel}
                 />
@@ -141,6 +147,7 @@ export default function CharacterPage() {
                 {isFilterPanelOpen && (
                   <FilterPanel
                     currentFilters={activeFilters}
+                    currentSortOrder={sortOrder}
                     onApplyFilters={handleApplyFilters}
                     onClose={toggleFilterPanel}
                   />
@@ -149,7 +156,6 @@ export default function CharacterPage() {
             </div>
           </>
         )}
-
         {filterCount > 0 && (
           <div className="flex justify-between items-center py-4 text-sm border-b border-t border-gray-200 xl:border-none xl:px-3 xl:py-4 xl:mb-0">
             <span className="font-semibold text-[#2563EB]">

@@ -1,50 +1,19 @@
 import { useState, useEffect } from 'react';
 import FilterButton from './FilterButton';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
-import { ActiveFilters } from '../types';
+import { ActiveFilters, SortOrder } from '../types';
 import { FilterPanelProps } from '../types';
-
-function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState(
-    () => window.matchMedia(query).matches
-  );
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-    const handler = (event: MediaQueryListEvent) => setMatches(event.matches);
-    try {
-      mediaQuery.addEventListener('change', handler);
-    } catch (e) {
-      console.error('Error adding event listener', e);
-      try {
-        mediaQuery.addListener(handler);
-      } catch (e2) {
-        console.error('Error adding event listener', e2);
-      }
-    }
-    setMatches(mediaQuery.matches);
-    return () => {
-      try {
-        mediaQuery.removeEventListener('change', handler);
-      } catch (e) {
-        console.error('Error removing event listener', e);
-        try {
-          mediaQuery.removeListener(handler);
-        } catch (e2) {
-          console.error('Error removing listener', e2);
-        }
-      }
-    };
-  }, [query]);
-  return matches;
-}
+import useMediaQuery from '../hooks/useMediaQuery';
 
 export default function FilterPanel({
   currentFilters,
+  currentSortOrder,
   onApplyFilters,
   onClose,
 }: FilterPanelProps) {
   const [localFilters, setLocalFilters] =
     useState<ActiveFilters>(currentFilters);
+    const [localSortOrder, setLocalSortOrder] = useState<SortOrder>(currentSortOrder);
 
   const isMobile = useMediaQuery('(max-width: 1279px)');
 
@@ -67,8 +36,12 @@ export default function FilterPanel({
     });
   };
 
+  const handleSortSelect = (sortValue: SortOrder) => {
+    setLocalSortOrder(sortValue);
+};
+
   const handleApplyClick = () => {
-    onApplyFilters(localFilters);
+    onApplyFilters(localFilters, localSortOrder);
   };
 
   return (
@@ -167,7 +140,34 @@ export default function FilterPanel({
             />
           </div>
         </div>
+        <div className="mb-5">
+                <label className="block text-sm font-medium text-gray-600 mb-2">Sort by Name</label>
+                <div className="flex flex-wrap gap-2">
+                    {/* Botón Default (Sin Ordenación) */}
+                    <FilterButton
+                        label="Default (ID)"
+                        value={undefined} // Representamos 'sin orden' con undefined para FilterButton
+                        currentSelection={localSortOrder ?? undefined} // Convierte null a undefined para la prop
+                        onClick={() => handleSortSelect(null)} // Al hacer clic, llama a handleSortSelect con null
+                    />
+                    {/* Botón A-Z */}
+                    <FilterButton
+                        label="A-Z"
+                        value={'ASC'} // El valor 'ASC' es un string, compatible
+                        currentSelection={localSortOrder ?? undefined} // Convierte null a undefined
+                        onClick={() => handleSortSelect('ASC')} // Al hacer clic, llama a handleSortSelect con 'ASC'
+                    />
+                    {/* Botón Z-A */}
+                    <FilterButton
+                        label="Z-A"
+                        value={'DESC'} // El valor 'DESC' es un string, compatible
+                        currentSelection={localSortOrder ?? undefined} // Convierte null a undefined
+                        onClick={() => handleSortSelect('DESC')} // Al hacer clic, llama a handleSortSelect con 'DESC'
+                    />
+                </div>
+            </div>
       </div>
+      
       <div className="flex-shrink-0">
         <button
           onClick={handleApplyClick}

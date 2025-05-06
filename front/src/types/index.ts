@@ -23,11 +23,17 @@ export interface ActiveFilters {
     originName?: string;
   }
   
+
+export type SortOrder = 'ASC' | 'DESC' | null;
+
 export interface FilterPanelProps {
     currentFilters: ActiveFilters;
-    onApplyFilters: (newFilters: ActiveFilters) => void;
+    currentSortOrder: SortOrder;
+    onApplyFilters: (newFilters: ActiveFilters, newSortOrder: SortOrder) => void;
     onClose: () => void;
   }
+
+
 
   export interface LikeHeartProps {
     isStarred: boolean;
