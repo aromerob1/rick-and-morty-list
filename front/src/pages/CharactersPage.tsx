@@ -17,7 +17,6 @@ export default function CharacterPage() {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC' | null>(null);
 
-
   console.log(
     'CharacterPage: Estado INICIAL activeFilters',
     JSON.stringify(activeFilters)
@@ -27,12 +26,18 @@ export default function CharacterPage() {
     setIsFilterPanelOpen((prev) => !prev);
   }, []);
 
-  const handleApplyFilters = useCallback((newFilters: ActiveFilters, newSortOrder: SortOrder) => {
-    console.log('CharacterPage: Aplicando filtros desde Panel ->', newFilters);
-    setActiveFilters(newFilters);
-    setSortOrder(newSortOrder);
-    setIsFilterPanelOpen(false);
-  }, []);
+  const handleApplyFilters = useCallback(
+    (newFilters: ActiveFilters, newSortOrder: SortOrder) => {
+      console.log(
+        'CharacterPage: Aplicando filtros desde Panel ->',
+        newFilters
+      );
+      setActiveFilters(newFilters);
+      setSortOrder(newSortOrder);
+      setIsFilterPanelOpen(false);
+    },
+    []
+  );
 
   const handleNameChange = useCallback((nameFilterValue: { name?: string }) => {
     console.log('CharacterPage: Recibido cambio de nombre ->', nameFilterValue);
@@ -64,27 +69,23 @@ export default function CharacterPage() {
     'CharacterPage: Estado activo de filtros',
     JSON.stringify(activeFilters)
   );
-  const {
-    data: dataNoStarred,
-  } = useQuery(GET_CHARACTERS_QUERY, {
+  const { data: dataNoStarred } = useQuery(GET_CHARACTERS_QUERY, {
     variables: {
       filter: {
         starred: false,
         ...activeFilters,
       },
-        sortByName: sortOrder || undefined, 
+      sortByName: sortOrder || undefined,
     },
   });
 
-  const {
-    data: dataStarred,
-  } = useQuery(GET_CHARACTERS_QUERY, {
+  const { data: dataStarred } = useQuery(GET_CHARACTERS_QUERY, {
     variables: {
       filter: {
         starred: true,
         ...activeFilters,
       },
-      sortByName: sortOrder || undefined, 
+      sortByName: sortOrder || undefined,
     },
   });
 
@@ -112,7 +113,7 @@ export default function CharacterPage() {
               {isFilterPanelOpen && (
                 <FilterPanel
                   currentFilters={activeFilters}
-                    currentSortOrder={sortOrder}
+                  currentSortOrder={sortOrder}
                   onApplyFilters={handleApplyFilters}
                   onClose={toggleFilterPanel}
                 />

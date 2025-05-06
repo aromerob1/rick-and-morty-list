@@ -5,7 +5,6 @@ import useDebounce from '../hooks/useDebounce';
 import ActiveFiltersIcon from '../assets/icons/ActiveFiltersIcon.svg?react';
 import { SearchBarProps } from '../types';
 
-
 export default function SearchBar({
   onToggleFilters,
   onSearchChange,

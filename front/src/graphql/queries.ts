@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const GET_CHARACTERS_QUERY = gql`
-  query GetCharacters($filter: FilterCharacterInput, $sortByName: SortDirection) {
+  query GetCharacters(
+    $filter: FilterCharacterInput
+    $sortByName: SortDirection
+  ) {
     characters(filter: $filter, sortByName: $sortByName) {
       id
       name

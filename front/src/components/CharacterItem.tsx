@@ -12,8 +12,9 @@ export default function CharacterItem({
 }: CharacterItemProps) {
   const { id, name, species, image, starred } = character;
 
-  const [updateStarred, { loading: updatingStarred }] =
-    useMutation(SET_STARRED_MUTATION, {
+  const [updateStarred, { loading: updatingStarred }] = useMutation(
+    SET_STARRED_MUTATION,
+    {
       refetchQueries: [
         {
           query: GET_CHARACTERS_QUERY,
@@ -24,7 +25,8 @@ export default function CharacterItem({
           variables: { filter: { starred: true } },
         },
       ],
-    });
+    }
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     const isDesktop = window.matchMedia('(min-width: 1024px)').matches;

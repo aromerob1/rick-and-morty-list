@@ -1,11 +1,11 @@
 /// <reference types="vite/client" />
 
 declare module '*.svg?react' {
-    import * as React from 'react';
-    // Define que la exportación por defecto es un Componente Funcional de React
-    // que acepta props de SVG (como className, width, height, etc.)
-    const ReactComponent: React.FunctionComponent<
-      React.SVGProps<SVGSVGElement> & { title?: string }
-    >;
-    export default ReactComponent;
-  }
+  import * as React from 'react';
+  // Define que la exportación por defecto es un Componente Funcional de React
+  // que acepta props de SVG (como className, width, height, etc.)
+  const ReactComponent: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement> & { title?: string }
+  >;
+  export default ReactComponent;
+}

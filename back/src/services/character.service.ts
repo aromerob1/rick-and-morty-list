@@ -90,7 +90,7 @@ export const findCharacters = async (
   const { filter = {}, sortByName } = options;
 
   const filterKeyPart = JSON.stringify(filter);
-  const sortKeyPart = sortByName || 'none'; 
+  const sortKeyPart = sortByName || 'none';
   const cacheKey = `characters:filter:${filterKeyPart}:sort:${sortKeyPart}`;
   console.log(`[Service] Cache Key generated: ${cacheKey}`);
 
@@ -139,13 +139,13 @@ export const findCharacters = async (
     whereClause
   );
 
-  let orderClause: Order = [['id', 'ASC']]; 
+  let orderClause: Order = [['id', 'ASC']];
   if (sortByName === 'ASC') {
-      orderClause = [['name', 'ASC']]; 
-       console.log('[Service] Applying ORDER BY name ASC');
+    orderClause = [['name', 'ASC']];
+    console.log('[Service] Applying ORDER BY name ASC');
   } else if (sortByName === 'DESC') {
-      orderClause = [['name', 'DESC']]; 
-      console.log('[Service] Applying ORDER BY name DESC');
+    orderClause = [['name', 'DESC']];
+    console.log('[Service] Applying ORDER BY name DESC');
   }
 
   try {

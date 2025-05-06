@@ -1,4 +1,4 @@
-import { FilterButtonProps } from "../types";
+import { FilterButtonProps } from '../types';
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   label,

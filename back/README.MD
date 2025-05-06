@@ -6,16 +6,17 @@ This project is a Node.js backend application built with Express and Apollo Serv
 
 Before you begin, ensure you have the following installed:
 
-* Node.js (v18 or later recommended)
-* npm (v8+), yarn, or pnpm
-* Git
-* A running MySQL server instance
-* A running Redis server instance
-* \[Optional] Docker Desktop (if running MySQL/Redis via Docker)
+- Node.js (v18 or later recommended)
+- npm (v8+), yarn, or pnpm
+- Git
+- A running MySQL server instance
+- A running Redis server instance
+- \[Optional] Docker Desktop (if running MySQL/Redis via Docker)
 
 ## Setup and Installation
 
 1.  **Clone the Repository:**
+
     ```bash
     # If you haven't already
     git clone <repository-url>
@@ -24,6 +25,7 @@ Before you begin, ensure you have the following installed:
 
 2.  **Install Dependencies:**
     Navigate to the \`back\` directory (this project's root) and run:
+
     ```bash
     npm install
     # OR yarn install
@@ -31,36 +33,37 @@ Before you begin, ensure you have the following installed:
     ```
 
 3.  **Environment Variables:**
-    * Create a `.env` file in the `back` directory root by copying the `.env.example` file:
-        ```bash
-        cp .env.example .env
-        ```
-    * Edit the `.env` file and provide your actual database credentials, Redis URL, and desired port:
-        * `DB_HOST`: MySQL host (e.g., `localhost`)
-        * `DB_PORT`: MySQL port (e.g., `3306`)
-        * `DB_USER`: MySQL username
-        * `DB_PASSWORD`: MySQL password
-        * `DB_NAME`: The name for your MySQL database (e.g., `rick_morty_db`)
-        * `REDIS_URL`: Connection URL for Redis (e.g., `redis://localhost:6379`)
-        * `PORT`: Port for the Express server (e.g., `3000`)
-        * `NODE_ENV`: Set to `development`
-        * _(Other variables like `RICKMORTY_API_BASE_URL`, `GRAPHQL_PATH` usually have defaults set in config)_
+
+    - Create a `.env` file in the `back` directory root by copying the `.env.example` file:
+      ```bash
+      cp .env.example .env
+      ```
+    - Edit the `.env` file and provide your actual database credentials, Redis URL, and desired port:
+      - `DB_HOST`: MySQL host (e.g., `localhost`)
+      - `DB_PORT`: MySQL port (e.g., `3306`)
+      - `DB_USER`: MySQL username
+      - `DB_PASSWORD`: MySQL password
+      - `DB_NAME`: The name for your MySQL database (e.g., `rick_morty_db`)
+      - `REDIS_URL`: Connection URL for Redis (e.g., `redis://localhost:6379`)
+      - `PORT`: Port for the Express server (e.g., `3000`)
+      - `NODE_ENV`: Set to `development`
+      - _(Other variables like `RICKMORTY_API_BASE_URL`, `GRAPHQL_PATH` usually have defaults set in config)_
 
 4.  **Database Setup:**
-    * **Create Database:** Manually create the database specified in your \`.env\` file using a MySQL client:
-        ```sql
-        CREATE DATABASE IF NOT EXISTS your_db_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-        ```
-        (Replace `your_db_name` with the value of `DB_NAME` from your `.env`)
-    * **Run Migrations:** Apply the database schema (create tables like `Characters`). Make sure you have edited the migration file (`db/migrations/...-create-characters-table.js`) correctly.
-        ```bash
-        npx sequelize-cli db:migrate
-        ```
-    * **Seed Initial Data:** Populate the database with the first 15 characters from the Rick and Morty API using the script created earlier.
-        ```bash
-        npm run seed
-        # OR yarn seed / pnpm seed
-        ```
+    - **Create Database:** Manually create the database specified in your \`.env\` file using a MySQL client:
+      ```sql
+      CREATE DATABASE IF NOT EXISTS your_db_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+      ```
+      (Replace `your_db_name` with the value of `DB_NAME` from your `.env`)
+    - **Run Migrations:** Apply the database schema (create tables like `Characters`). Make sure you have edited the migration file (`db/migrations/...-create-characters-table.js`) correctly.
+      ```bash
+      npx sequelize-cli db:migrate
+      ```
+    - **Seed Initial Data:** Populate the database with the first 15 characters from the Rick and Morty API using the script created earlier.
+      ```bash
+      npm run seed
+      # OR yarn seed / pnpm seed
+      ```
 
 ## Running the Application (Development)
 
@@ -86,118 +89,118 @@ It's recommended to use a GraphQL client like **Apollo Sandbox** (available by n
 
 **1. Get a Single Character by ID:**
 
-* **Query:**
-    ```graphql
-    query GetCharacterById($id: ID!) {
-      character(id: $id) {
-        id
-        name
-        status
-        species
-        image
-        starred
-        originName
-        locationName
-        createdAt
-        updatedAt
-      }
+- **Query:**
+  ```graphql
+  query GetCharacterById($id: ID!) {
+    character(id: $id) {
+      id
+      name
+      status
+      species
+      image
+      starred
+      originName
+      locationName
+      createdAt
+      updatedAt
     }
-    ```
-* **Variables:**
-    ```json
-    {
-      "id": "1"
-    }
-    ```
+  }
+  ```
+- **Variables:**
+  ```json
+  {
+    "id": "1"
+  }
+  ```
 
 **2. Get Characters with Filters:**
 
-* **Query:**
-    ```graphql
-    query GetFilteredCharacters($filter: FilterCharacterInput) {
-      characters(filter: $filter) {
-        id
-        name
-        status
-        species
-        starred
-        image
-      }
+- **Query:**
+  ```graphql
+  query GetFilteredCharacters($filter: FilterCharacterInput) {
+    characters(filter: $filter) {
+      id
+      name
+      status
+      species
+      starred
+      image
     }
-    ```
-* **Variables (Example: Alive Humans - Non-Starred List):**
-    _(Remember your frontend fetches starred/non-starred separately)_
-    ```json
-    {
-      "filter": {
-        "starred": false,
-        "status": "Alive",
-        "species": "Human"
-      }
+  }
+  ```
+- **Variables (Example: Alive Humans - Non-Starred List):**
+  _(Remember your frontend fetches starred/non-starred separately)_
+  ```json
+  {
+    "filter": {
+      "starred": false,
+      "status": "Alive",
+      "species": "Human"
     }
-    \`\`\`
-* **Variables (Example: Starred Characters named "Morty"):**
-    ```json
-    {
-      "filter": {
-        "starred": true,
-        "name": "Morty"
-      }
+  }
+  \`\`\`
+  ```
+- **Variables (Example: Starred Characters named "Morty"):**
+  ```json
+  {
+    "filter": {
+      "starred": true,
+      "name": "Morty"
     }
-    ```
-* **Variables (Example: Get all Non-Starred):**
-    ```json
-    {
-      "filter": {
-        "starred": false
-      }
+  }
+  ```
+- **Variables (Example: Get all Non-Starred):**
+  ```json
+  {
+    "filter": {
+      "starred": false
     }
-    ```
+  }
+  ```
 
 **3. Update Starred Status (Mutation):**
 
-* **Mutation:**
-    ```graphql
-    mutation SetStarredStatus($characterId: ID!, $newState: Boolean!) {
-      updateCharacterStarred(id: $characterId, starred: $newState) {
-        id
-        name
-        starred
-      }
+- **Mutation:**
+  ```graphql
+  mutation SetStarredStatus($characterId: ID!, $newState: Boolean!) {
+    updateCharacterStarred(id: $characterId, starred: $newState) {
+      id
+      name
+      starred
     }
-    ```
-* **Variables (Example: Star character 5):**
-    ```json
-    {
-      "characterId": "5",
-      "newState": true
-    }
-    ```
-* **Variables (Example: Unstar character 1):**
-    ```json
-    {
-      "characterId": "1",
-      "newState": false
-    }
-    ```
-
+  }
+  ```
+- **Variables (Example: Star character 5):**
+  ```json
+  {
+    "characterId": "5",
+    "newState": true
+  }
+  ```
+- **Variables (Example: Unstar character 1):**
+  ```json
+  {
+    "characterId": "1",
+    "newState": false
+  }
+  ```
 
 ## Technology Stack
 
-* Node.js
-* TypeScript
-* tsx (TypeScript execution)
-* Express.js
-* Apollo Server (GraphQL)
-* Sequelize (ORM)
-* mysql2 (MySQL Driver)
-* MySQL (Database)
-* redis (Client library for caching)
-* Redis Server (Cache store)
-* dotenv (Environment variables)
-* sequelize-cli (Migrations & Seeding)
-* prettier (Code formatting)
-* cors (Cross-Origin Resource Sharing)
+- Node.js
+- TypeScript
+- tsx (TypeScript execution)
+- Express.js
+- Apollo Server (GraphQL)
+- Sequelize (ORM)
+- mysql2 (MySQL Driver)
+- MySQL (Database)
+- redis (Client library for caching)
+- Redis Server (Cache store)
+- dotenv (Environment variables)
+- sequelize-cli (Migrations & Seeding)
+- prettier (Code formatting)
+- cors (Cross-Origin Resource Sharing)
 
 ## Project Structure (Simplified)
 
