@@ -6,6 +6,31 @@ import CharacterDetailView from '../components/CharacterDetailView';
 import FilterPanel from '../components/FilterPanel';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
 
+export interface ActiveFilters {
+    name?: string;
+    status?: string;
+    species?: string;
+    gender?: string;
+    originName?: string;
+    // Añade aquí cualquier otro campo por el que permitas filtrar desde FilterPanel
+}
+
+// (Opcional pero MUY recomendado) Define también tu tipo Character aquí
+export interface Character {
+    id: string | number;
+    name: string;
+    status: string;
+    species: string;
+    type: string; // O string | null si puede ser nulo
+    image: string;
+    starred: boolean;
+    gender?: string; // Marca como opcional si no siempre lo pides/tienes
+    originName?: string | null;
+    locationName?: string | null;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
 const GET_CHARACTERS_QUERY = gql`
   query GetCharacters($filter: FilterCharacterInput) {
     characters(filter: $filter) {
@@ -74,8 +99,6 @@ export default function CharacterPage() {
     JSON.stringify(activeFilters)
   );
   const {
-    loading: loadingNoStarred,
-    error: errorNoStarred,
     data: dataNoStarred,
   } = useQuery(GET_CHARACTERS_QUERY, {
     variables: {
@@ -87,8 +110,6 @@ export default function CharacterPage() {
   });
 
   const {
-    loading: loadingStarred,
-    error: errorStarred,
     data: dataStarred,
   } = useQuery(GET_CHARACTERS_QUERY, {
     variables: {
@@ -183,7 +204,7 @@ export default function CharacterPage() {
           </h2>
           <ul>
             {starredCharacters.length > 0 ? (
-              starredCharacters.map((char: any) => (
+              starredCharacters.map((char: Character) => (
                 <li key={char.id} className="border-cool-gray-200 border-t">
                   <CharacterItem
                     character={char}
@@ -204,7 +225,7 @@ export default function CharacterPage() {
           <ul>
             <li>
               {noStarredCharacters.length > 0 ? (
-                noStarredCharacters.map((char: any) => (
+                noStarredCharacters.map((char: Character) => (
                   <li key={char.id} className="border-cool-gray-200 border-t">
                     <CharacterItem
                       character={char}

@@ -30,7 +30,7 @@ const GET_CHARACTERS_QUERY = gql`
 `;
 
 interface CharacterItemProps {
-  character: never;
+  character: any;
   onSelect: (id: string | number) => void;
   isSelected: boolean;
 }
