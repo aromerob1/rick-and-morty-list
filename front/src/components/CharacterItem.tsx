@@ -53,8 +53,8 @@ export default function CharacterItem({
     <Link
       to={`character/${id}`}
       onClick={handleClick}
-      className={`flex items-center justify-between py-4 rounded-lg transition-all duration-150 ease-in-out ${
-        isSelected ? 'bg-primary-100 -mx-2 px-2 shadow-md' : 'hover:bg-gray-100'
+      className={`flex items-center justify-between py-4 rounded-lg transition-all duration-150 ease-in-out -mx-2 px-2 ${
+        isSelected ? 'bg-primary-100 shadow-md' : 'hover:bg-gray-100'
       }`}
     >
       <div className="flex items-center">
