@@ -15,7 +15,7 @@ export default function SearchBar({
 
   useEffect(() => {
     console.log(
-      `[SearchBar] Debounced term: "${debouncedSearchTerm}", llamando onSearchChange.`
+      `[SearchBar] Debounced term: "${debouncedSearchTerm}".`
     );
     onSearchChange({ name: debouncedSearchTerm.trim() || undefined });
   }, [debouncedSearchTerm, onSearchChange]);
