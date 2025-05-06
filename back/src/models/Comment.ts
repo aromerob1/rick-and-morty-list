@@ -1,16 +1,19 @@
 // src/models/Comment.model.ts
 import { Model, DataTypes, Sequelize, Optional } from 'sequelize';
-import Character from './Character'; 
+import Character from './Character';
 
 interface CommentAttributes {
   id: number;
-  characterId: number; 
-  commentText: string; 
+  characterId: number;
+  commentText: string;
 }
 
 interface CommentCreationAttributes extends Optional<CommentAttributes, 'id'> {}
 
-class Comment extends Model<CommentAttributes, CommentCreationAttributes> implements CommentAttributes {
+class Comment
+  extends Model<CommentAttributes, CommentCreationAttributes>
+  implements CommentAttributes
+{
   public id!: number;
   public characterId!: number;
   public commentText!: string;
@@ -21,8 +24,8 @@ class Comment extends Model<CommentAttributes, CommentCreationAttributes> implem
   public static associate(models: any) {
     Comment.belongsTo(models.Character, {
       foreignKey: 'characterId',
-      as: 'character', 
-      onDelete: 'CASCADE', 
+      as: 'character',
+      onDelete: 'CASCADE',
     });
   }
 }
@@ -38,15 +41,15 @@ export const initCommentModel = (sequelize: Sequelize): typeof Comment => {
       characterId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { 
-          model: 'Characters', 
+        references: {
+          model: 'Characters',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       commentText: {
-        type: DataTypes.TEXT, 
+        type: DataTypes.TEXT,
         allowNull: false,
       },
     },

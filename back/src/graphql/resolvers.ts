@@ -48,11 +48,18 @@ export const resolvers = {
     },
   },
   Character: {
-    comments: async (parentCharacter: { id: string | number }, _: any, context: MyContext): Promise<any[]> => {
+    comments: async (
+      parentCharacter: { id: string | number },
+      _: any,
+      context: MyContext
+    ): Promise<any[]> => {
       console.log(`[Resolver] Fetching: ${parentCharacter.id}`);
-      return commentService.findCommentsByCharacterId(parentCharacter.id, context.redis);
-    }
+      return commentService.findCommentsByCharacterId(
+        parentCharacter.id,
+        context.redis
+      );
     },
+  },
 
   Mutation: {
     updateCharacterStarred: async (
@@ -72,15 +79,22 @@ export const resolvers = {
       }
       return updatedCharacter;
     },
-    addComment: async (_: any, args: AddCommentArgs, context: MyContext): Promise<any> => {
-        console.log(`[Resolver] Executing mutation with args:`, args);
-        const newComment = await commentService.createComment({
-            characterId: args.characterId,
-            commentText: args.commentText
-        }, context.redis);
-        newComment.characterId = args.characterId;
-        newComment.commentText = args.commentText;
-        return newComment; 
-      }
+    addComment: async (
+      _: any,
+      args: AddCommentArgs,
+      context: MyContext
+    ): Promise<any> => {
+      console.log(`[Resolver] Executing mutation with args:`, args);
+      const newComment = await commentService.createComment(
+        {
+          characterId: args.characterId,
+          commentText: args.commentText,
+        },
+        context.redis
+      );
+      newComment.characterId = args.characterId;
+      newComment.commentText = args.commentText;
+      return newComment;
+    },
   },
 };

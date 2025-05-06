@@ -22,13 +22,12 @@ export default function CharacterDetailPage() {
 
   return (
     <section className="flex flex-col px-6">
-        <nav className="py-6.5">
-          <Link to="/">
-            <BackIcon />
-          </Link>
-        </nav>
-        <CharacterDetailView characterId={character.id} />
-
+      <nav className="py-6.5">
+        <Link to="/">
+          <BackIcon />
+        </Link>
+      </nav>
+      <CharacterDetailView characterId={character.id} />
     </section>
   );
 }

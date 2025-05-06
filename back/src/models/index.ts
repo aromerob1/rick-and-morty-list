@@ -11,9 +11,9 @@ const db = {
 };
 
 Object.values(db).forEach((model: any) => {
-    if (model.associate) {
-      model.associate(db); 
-    }
-  });
+  if (model.associate) {
+    model.associate(db);
+  }
+});
 
 export default db;

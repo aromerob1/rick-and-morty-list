@@ -148,21 +148,21 @@ export default function FilterPanel({
           <div className="flex flex-wrap gap-2">
             <FilterButton
               label="Default (ID)"
-              value={undefined} 
-              currentSelection={localSortOrder ?? undefined} 
-              onClick={() => handleSortSelect(null)} 
+              value={undefined}
+              currentSelection={localSortOrder ?? undefined}
+              onClick={() => handleSortSelect(null)}
             />
             <FilterButton
               label="A-Z"
-              value={'ASC'} 
-              currentSelection={localSortOrder ?? undefined} 
-              onClick={() => handleSortSelect('ASC')} 
+              value={'ASC'}
+              currentSelection={localSortOrder ?? undefined}
+              onClick={() => handleSortSelect('ASC')}
             />
             <FilterButton
               label="Z-A"
-              value={'DESC'} 
-              currentSelection={localSortOrder ?? undefined} 
-              onClick={() => handleSortSelect('DESC')} 
+              value={'DESC'}
+              currentSelection={localSortOrder ?? undefined}
+              onClick={() => handleSortSelect('DESC')}
             />
           </div>
         </div>

@@ -42,9 +42,9 @@ Before you begin, ensure you have the following installed:
       - **If using Create React App:**
         `dotenv
     # .env for Create React App
-    REACT_APP_GRAPHQL_ENDPOINT=http://localhost:3000/graphql
+    REACT*APP_GRAPHQL_ENDPOINT=http://localhost:3000/graphql
     `
-        _(Adjust the URL if your backend runs on a different port)._
+    *(Adjust the URL if your backend runs on a different port).\_
 
 ## Running the Application (Development)
 

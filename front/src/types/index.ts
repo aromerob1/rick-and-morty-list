@@ -69,7 +69,7 @@ export interface Character {
 }
 
 export interface CommentType {
-    id: string;
-    characterId: string | number;
-    commentText: string;
+  id: string;
+  characterId: string | number;
+  commentText: string;
 }

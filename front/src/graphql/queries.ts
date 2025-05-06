@@ -31,10 +31,10 @@ export const GET_CHARACTER_DETAIL_QUERY = gql`
       starred
       createdAt
       updatedAt
-        comments {
-            id
-            commentText
-        }
+      comments {
+        id
+        commentText
+      }
     }
   }
 `;
