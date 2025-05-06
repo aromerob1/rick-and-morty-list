@@ -1,9 +1,4 @@
-interface FilterButtonProps {
-  label: string;
-  value: string | undefined;
-  currentSelection: string | undefined;
-  onClick: (value: string | undefined) => void;
-}
+import { FilterButtonProps } from "../types";
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   label,

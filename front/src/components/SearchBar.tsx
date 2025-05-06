@@ -3,12 +3,8 @@ import FiltersIcon from '../assets/icons/FiltersIcon.svg?react';
 import SearchIcon from '../assets/icons/SearchIcon.svg?react';
 import useDebounce from '../hooks/useDebounce';
 import ActiveFiltersIcon from '../assets/icons/ActiveFiltersIcon.svg?react';
+import { SearchBarProps } from '../types';
 
-interface SearchBarProps {
-  onToggleFilters: () => void;
-  onSearchChange: (filters: { name?: string }) => void;
-  isPanelOpen?: boolean;
-}
 
 export default function SearchBar({
   onToggleFilters,

@@ -1,11 +1,5 @@
 import DetailedHeart from '../assets/icons/DetailedHeart.svg?react';
-
-interface LikeHeartProps {
-  isStarred: boolean;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  disabled?: boolean;
-  isSelected?: boolean;
-}
+import { LikeHeartProps } from '../types';
 
 export default function LikeHeart({
   isStarred,

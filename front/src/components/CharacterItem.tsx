@@ -1,39 +1,9 @@
 import { Link } from 'react-router-dom';
 import LikeHeart from './LikeHeart';
-import { gql, useMutation } from '@apollo/client';
-
-const SET_STARRED_MUTATION = gql`
-  mutation SetStarred($id: ID!, $starred: Boolean!) {
-    updateCharacterStarred(id: $id, starred: $starred) {
-      id
-      name
-      status
-      species
-      type
-      image
-      starred
-    }
-  }
-`;
-
-const GET_CHARACTERS_QUERY = gql`
-  query GetCharacters($filter: FilterCharacterInput) {
-    characters(filter: $filter) {
-      id
-      name
-      status
-      species
-      image
-      starred
-    }
-  }
-`;
-
-interface CharacterItemProps {
-  character: any;
-  onSelect: (id: string | number) => void;
-  isSelected: boolean;
-}
+import { useMutation } from '@apollo/client';
+import { SET_STARRED_MUTATION } from '../graphql/mutations';
+import { GET_CHARACTERS_QUERY } from '../graphql/queries';
+import { CharacterItemProps } from '../types/index';
 
 export default function CharacterItem({
   character,

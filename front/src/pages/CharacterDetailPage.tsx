@@ -1,26 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import DetailedHeartIcon from '../assets/icons/DetailedHeart.svg';
-
-const GET_CHARACTER_DETAIL_QUERY = gql`
-  query GetCharacterDetail($id: ID!) {
-    character(id: $id) {
-      id
-      name
-      status
-      species
-      type
-      gender
-      originName
-      locationName
-      image
-      starred
-      createdAt
-      updatedAt
-    }
-  }
-`;
+import { GET_CHARACTER_DETAIL_QUERY } from '../graphql/queries';
 
 export default function CharacterDetailPage() {
   const { characterId } = useParams<{ characterId: string }>();

@@ -1,20 +1,8 @@
 import { useState, useEffect } from 'react';
 import FilterButton from './FilterButton';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
-
-interface ActiveFilters {
-  name?: string;
-  status?: string;
-  species?: string;
-  gender?: string;
-  originName?: string;
-}
-
-interface FilterPanelProps {
-  currentFilters: ActiveFilters;
-  onApplyFilters: (newFilters: ActiveFilters) => void;
-  onClose: () => void;
-}
+import { ActiveFilters } from '../types';
+import { FilterPanelProps } from '../types';
 
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(
@@ -68,7 +56,7 @@ export default function FilterPanel({
     filterKey: keyof ActiveFilters,
     value: string | undefined
   ) => {
-    setLocalFilters((prevFilters) => {
+    setLocalFilters((prevFilters: ActiveFilters) => {
       const newFilters = { ...prevFilters };
       if (value) {
         newFilters[filterKey] = value;

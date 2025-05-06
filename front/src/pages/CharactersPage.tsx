@@ -1,49 +1,12 @@
 import { useCallback, useState } from 'react';
 import CharacterItem from '../components/CharacterItem';
 import SearchBar from '../components/SearchBar';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import CharacterDetailView from '../components/CharacterDetailView';
 import FilterPanel from '../components/FilterPanel';
 import BackIcon from '../assets/icons/BackIcon.svg?react';
-
-export interface ActiveFilters {
-    name?: string;
-    status?: string;
-    species?: string;
-    gender?: string;
-    originName?: string;
-    // Añade aquí cualquier otro campo por el que permitas filtrar desde FilterPanel
-}
-
-// (Opcional pero MUY recomendado) Define también tu tipo Character aquí
-export interface Character {
-    id: string | number;
-    name: string;
-    status: string;
-    species: string;
-    type: string; // O string | null si puede ser nulo
-    image: string;
-    starred: boolean;
-    gender?: string; // Marca como opcional si no siempre lo pides/tienes
-    originName?: string | null;
-    locationName?: string | null;
-    createdAt?: string;
-    updatedAt?: string;
-}
-
-const GET_CHARACTERS_QUERY = gql`
-  query GetCharacters($filter: FilterCharacterInput) {
-    characters(filter: $filter) {
-      id
-      name
-      status
-      species
-      type
-      image
-      starred
-    }
-  }
-`;
+import { GET_CHARACTERS_QUERY } from '../graphql/queries';
+import { Character, ActiveFilters } from '../types';
 
 export default function CharacterPage() {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({});

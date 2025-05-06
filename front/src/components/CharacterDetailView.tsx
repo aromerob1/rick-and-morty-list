@@ -1,28 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import DetailedHeartIcon from '../assets/icons/DetailedHeart.svg';
-
-const GET_CHARACTER_DETAIL_QUERY = gql`
-  query GetCharacterDetail($id: ID!) {
-    character(id: $id) {
-      id
-      name
-      status
-      species
-      type
-      gender
-      originName
-      locationName
-      image
-      starred
-      createdAt
-      updatedAt
-    }
-  }
-`;
-
-interface CharacterDetailViewProps {
-  characterId: string | number | null;
-}
+import { CharacterDetailViewProps } from '../types/index';
+import { GET_CHARACTER_DETAIL_QUERY } from '../graphql/queries';
 
 function CharacterDetailView({ characterId }: CharacterDetailViewProps) {
   const { loading, error, data } = useQuery(GET_CHARACTER_DETAIL_QUERY, {
