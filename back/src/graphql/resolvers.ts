@@ -1,5 +1,6 @@
 import * as characterService from '../services/character.service';
 import { MyContext } from './context';
+import * as commentService from '../services/comment.service';
 
 interface CharactersArgs {
   filter?: {
@@ -46,6 +47,11 @@ export const resolvers = {
       return charactersData;
     },
   },
+  Character: {
+    comments: async (parentCharacter: { id: string | number }, _: any, context: MyContext): Promise<any[]> => {
+      console.log(`[Resolver] Fetching: ${parentCharacter.id}`);
+      return commentService.findCommentsByCharacterId(parentCharacter.id, context.redis);
+    },
   Mutation: {
     updateCharacterStarred: async (
       _: any,
@@ -64,5 +70,14 @@ export const resolvers = {
       }
       return updatedCharacter;
     },
+    addComment: async (_: any, args: AddCommentArgs, context: MyContext): Promise<any> => {
+        console.log(`[Resolver] Executing mutation with args:`, args);
+        const newComment = await commentService.createComment({
+            characterId: args.characterId,
+            commentText: args.commentText
+        }, context.redis);
+        return newComment; 
+      }
   },
+}   
 };

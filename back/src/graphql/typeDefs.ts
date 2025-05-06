@@ -28,6 +28,13 @@ export const typeDefs = `#graphql
     DESC 
   }
 
+  type Comment {
+    id: ID!
+    commentText: String!
+    characterId: ID! 
+    createdAt: String
+  }
+
   type Query {
   character(id: ID!): Character
   characters(filter: FilterCharacterInput, sortByName: SortDirection): [Character]
@@ -37,5 +44,10 @@ export const typeDefs = `#graphql
         id: ID!
         starred: Boolean!
       ): Character 
+
+      addComment(
+      characterId: ID!    
+      commentText: String!  
+    ): Comment! 
     }
 `;
