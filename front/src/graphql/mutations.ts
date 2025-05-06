@@ -13,3 +13,12 @@ export const SET_STARRED_MUTATION = gql`
     }
   }
 `;
+export const ADD_COMMENT_MUTATION = gql`
+  mutation AddNewComment($characterId: ID!, $commentText: String!) {
+    addComment(characterId: $characterId, commentText: $commentText) {
+      id
+      commentText
+      characterId
+    }
+  }
+`;

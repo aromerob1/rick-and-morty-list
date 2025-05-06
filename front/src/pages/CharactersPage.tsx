@@ -211,7 +211,7 @@ export default function CharacterPage() {
           </ul>
         </section>
       </div>
-      <div className="hidden xl:block xl:flex-1 xl:h-full xl:shadow-[0px_4px_60px_0px_rgba(0,0,0,0.05)]">
+      <div className="hidden xl:block xl:flex-1 xl:h-full xl:shadow-[0px_4px_60px_0px_rgba(0,0,0,0.05)] xl:overflow-y-auto">
         <CharacterDetailView characterId={selectedCharacterId} />
       </div>
     </div>

@@ -67,3 +67,9 @@ export interface Character {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface CommentType {
+    id: string;
+    characterId: string | number;
+    commentText: string;
+}
