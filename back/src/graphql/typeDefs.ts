@@ -13,6 +13,7 @@ export const typeDefs = `#graphql
     createdAt: String
     updatedAt: String
   }
+
   input FilterCharacterInput {
     name: String
     status: String
@@ -21,9 +22,15 @@ export const typeDefs = `#graphql
     originName: String
     starred: Boolean
   }
+
+  enum SortDirection {
+    ASC  
+    DESC 
+  }
+
   type Query {
   character(id: ID!): Character
-  characters(filter: FilterCharacterInput): [Character]
+  characters(filter: FilterCharacterInput, sortByName: SortDirection): [Character]
 }
     type Mutation {
         updateCharacterStarred(

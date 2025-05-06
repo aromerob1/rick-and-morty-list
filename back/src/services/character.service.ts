@@ -1,5 +1,5 @@
 import db from '../models';
-import { Op, WhereOptions } from 'sequelize';
+import { Op, Order, WhereOptions } from 'sequelize';
 import { RedisClientType } from 'redis';
 
 const CACHE_TTL_CHARACTER_SECONDS = 3600;
@@ -15,6 +15,7 @@ interface FindCharactersOptions {
     occupation?: string;
     starred?: boolean;
   };
+  sortByName?: string;
 }
 
 export const findCharacterById = async (
@@ -86,10 +87,11 @@ export const findCharacters = async (
   options: FindCharactersOptions = {},
   redis: RedisClientType
 ) => {
-  const { filter = {} } = options;
+  const { filter = {}, sortByName } = options;
 
   const filterKeyPart = JSON.stringify(filter);
-  const cacheKey = `characters:filter:${filterKeyPart}`;
+  const sortKeyPart = sortByName || 'none'; 
+  const cacheKey = `characters:filter:${filterKeyPart}:sort:${sortKeyPart}`;
   console.log(`[Service] Cache Key generated: ${cacheKey}`);
 
   if (redis?.isOpen) {
@@ -136,10 +138,20 @@ export const findCharacters = async (
     '[Service] Searchong for characters with WHERE clause:',
     whereClause
   );
+
+  let orderClause: Order = [['id', 'ASC']]; 
+  if (sortByName === 'ASC') {
+      orderClause = [['name', 'ASC']]; 
+       console.log('[Service] Applying ORDER BY name ASC');
+  } else if (sortByName === 'DESC') {
+      orderClause = [['name', 'DESC']]; 
+      console.log('[Service] Applying ORDER BY name DESC');
+  }
+
   try {
     const charactersInstances = await db.Character.findAll({
       where: whereClause,
-      order: [['id', 'ASC']],
+      order: orderClause,
     });
 
     console.log(

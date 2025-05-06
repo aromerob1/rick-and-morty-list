@@ -10,6 +10,7 @@ interface CharactersArgs {
     originName?: string;
     starred?: boolean;
   };
+  sortByName?: string;
 }
 
 interface UpdateStarredArgs {
@@ -37,8 +38,9 @@ export const resolvers = {
       context: MyContext
     ): Promise<any> => {
       const filter = args.filter;
+      const sortByName = args.sortByName;
       const charactersData = await characterService.findCharacters(
-        { filter },
+        { filter, sortByName },
         context.redis
       );
       return charactersData;
