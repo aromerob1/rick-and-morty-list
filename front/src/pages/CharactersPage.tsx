@@ -193,7 +193,6 @@ export default function CharacterPage() {
             CHARACTERS ({noStarredCharacters.length})
           </h2>
           <ul>
-            <li>
               {noStarredCharacters.length > 0 ? (
                 noStarredCharacters.map((char: Character) => (
                   <li key={char.id} className="border-cool-gray-200 border-t">
@@ -207,7 +206,6 @@ export default function CharacterPage() {
               ) : (
                 <p>No characters found</p>
               )}
-            </li>
           </ul>
         </section>
       </div>
