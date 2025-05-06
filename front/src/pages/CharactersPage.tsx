@@ -17,10 +17,6 @@ export default function CharacterPage() {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC' | null>(null);
 
-  console.log(
-    'CharacterPage: Estado INICIAL activeFilters',
-    JSON.stringify(activeFilters)
-  );
 
   const toggleFilterPanel = useCallback(() => {
     setIsFilterPanelOpen((prev) => !prev);
@@ -29,7 +25,7 @@ export default function CharacterPage() {
   const handleApplyFilters = useCallback(
     (newFilters: ActiveFilters, newSortOrder: SortOrder) => {
       console.log(
-        'CharacterPage: Aplicando filtros desde Panel ->',
+        'CharacterPage: Apllying filters ->',
         newFilters
       );
       setActiveFilters(newFilters);
@@ -40,7 +36,7 @@ export default function CharacterPage() {
   );
 
   const handleNameChange = useCallback((nameFilterValue: { name?: string }) => {
-    console.log('CharacterPage: Recibido cambio de nombre ->', nameFilterValue);
+    console.log('CharacterPage: Name change ->', nameFilterValue);
     setActiveFilters((prevFilters) => {
       const updatedFilters = { ...prevFilters };
       const newName = nameFilterValue.name;
@@ -52,23 +48,14 @@ export default function CharacterPage() {
       if (JSON.stringify(prevFilters) === JSON.stringify(updatedFilters)) {
         return prevFilters;
       }
-      console.log(
-        'CharacterPage: Actualizando activeFilters a ->',
-        updatedFilters
-      );
       return updatedFilters;
     });
   }, []);
 
   const handleSelectCharacter = useCallback((id: string | number | null) => {
-    console.log('CharacterPage: Seleccionando ID ->', id);
     setSelectedCharacterId(id);
   }, []);
 
-  console.log(
-    'CharacterPage: Estado activo de filtros',
-    JSON.stringify(activeFilters)
-  );
   const { data: dataNoStarred } = useQuery(GET_CHARACTERS_QUERY, {
     variables: {
       filter: {
